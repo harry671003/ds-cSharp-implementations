@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace binary_search_tree
 {
@@ -124,6 +125,21 @@ namespace binary_search_tree
             }
 
             return GetRightAncestor(node);
+        }
+
+        public List<TreeNode<TKey, TValue>> RangeSearch(TKey rangeStart, TKey rangeEnd) 
+        {
+            var result = new List<TreeNode<TKey, TValue>>();
+
+            var nextNode = this.Find(rangeStart, this.Root);
+
+            while(nextNode != null && nextNode.Key.CompareTo(rangeEnd) <= 0)
+            {
+                result.Add(nextNode);
+                nextNode = this.GetNext(nextNode);
+            }
+
+            return result;
         }
 
         /// <summary>

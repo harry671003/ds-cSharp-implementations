@@ -9,10 +9,8 @@ namespace tests
         [Fact]
         public void InsertionTest()
         {
-            // Arrange.
             var tree = BuildTreeOfFive();
 
-            // Assert.
             Assert.Equal(5, tree.Root.Key);
 
             Assert.Null(tree.Root.Parent);
@@ -51,6 +49,21 @@ namespace tests
 
             next = tree.GetNext(next);
             Assert.Equal(9, next.Key);
+        }
+
+        [Fact]
+        public void RangeSearchTest()
+        {
+            var tree = BuildTreeOfFive();
+
+            var result = tree.RangeSearch(1, 7);
+
+            Assert.Equal(4, result.Count);
+
+            Assert.Equal(2, result[0].Key);
+            Assert.Equal(3, result[1].Key);
+            Assert.Equal(5, result[2].Key);
+            Assert.Equal(7, result[3].Key);
         }
 
         private BinarySearchTree<int, string> BuildTreeOfFive() 
