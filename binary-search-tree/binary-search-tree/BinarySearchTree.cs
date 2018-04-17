@@ -106,5 +106,54 @@ namespace binary_search_tree
         /// Get the count of nodes in the tree.
         /// </summary>
         public int Count { get; private set; }
+
+        /// <summary>
+        /// Returns the next larget node wrt to a current node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>Next largest node.</returns>
+        public TreeNode<TKey, TValue> GetNext(TreeNode<TKey, TValue> node) 
+        {
+            if(node == null)
+            {
+                return null;
+            }
+
+            if(node.RightChild != null) {
+                return GetLeftDescendent(node.RightChild);
+            }
+
+            return GetRightAncestor(node);
+        }
+
+        /// <summary>
+        /// Returns the left most descendent for a node (recursive).
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private TreeNode<TKey, TValue> GetLeftDescendent(TreeNode<TKey, TValue> node)
+        {
+            if(node.LeftChild == null) 
+            {
+                return node;
+            }
+
+            return GetLeftDescendent(node.LeftChild);
+        }
+
+        private TreeNode<TKey, TValue> GetRightAncestor(TreeNode<TKey, TValue> node)
+        {
+            if(node.Parent == null) 
+            {
+                return null;
+            }
+            
+            if(node.Parent.Key.CompareTo(node.Key) > 0)
+            {
+                return node.Parent;
+            }
+
+            return GetRightAncestor(node.Parent);
+        }
     }
 }
